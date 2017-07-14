@@ -30,10 +30,12 @@ final class Module_Friends extends GWF_Module
 	{
 		return array(
 			GDO_Checkbox::make('friendship_guests')->initial('0'),
+			GDO_Duration::make('friendship_cleanup_age')->initial(GWF_Time::ONE_DAY),
 		);
 	}
 	public function cfgGuestFriendships() { return $this->getConfigValue('friendship_guests'); }
-
+	public function cfgCleanupAge() { return $this->getConfigValue('friendship_cleanup_age'); }
+	
 	##############
 	### Render ###
 	##############
