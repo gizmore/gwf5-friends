@@ -13,7 +13,7 @@ final class Module_Friends extends GWF_Module
 	##############
 	public $module_priority = 40;
 	public function onLoadLanguage() { return $this->loadLanguage('lang/friends'); }
-	public function getClasses() { return ['GDO_FriendRelation', 'GWF_Friendship', 'GWF_FriendRequest', 'GWF_MethodFriendRequest']; }
+	public function getClasses() { return ['GDO_FriendRelation', 'GDO_ACL', 'GWF_Friendship', 'GWF_FriendRequest', 'GWF_MethodFriendRequest']; }
 
 	##############
 	### Config ###
