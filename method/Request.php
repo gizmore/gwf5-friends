@@ -53,7 +53,7 @@ final class Friends_Request extends GWF_MethodForm
 		
 		$this->sendMail($request);
 		
-		GWF_Hook::call('FriendsRequest', [$request]);
+		GWF_Hook::call('FriendsRequest', $request);
 		
 		return $this->message('msg_friend_request_sent');
 	}
