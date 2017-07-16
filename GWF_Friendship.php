@@ -48,11 +48,24 @@ final class GWF_Friendship extends GDO
 	
 	public static function count(GWF_User $user)
 	{
-		return self::queryCount($user);
+		if (null === ($cached = $user->tempGet('gwf_friendship_count')))
+		{
+			$cached = self::queryCount($user);
+			$user->tempSet('gwf_friendship_count', $cached);
+			$user->recache();
+		}
+		return $cached;
 	}
 	
 	private static function queryCount(GWF_User $user)
 	{
 		return self::table()->countWhere('friend_user='.$user->getID());
+	}
+	
+	public function gdoAfterCreate()
+	{
+		$user = $this->getUser();
+		$user->tempUnset('gwf_friendship_count');
+		$user->recache();
 	}
 }

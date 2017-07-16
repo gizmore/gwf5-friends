@@ -3,11 +3,14 @@ $navbar instanceof GWF_Navbar;
 if ($navbar->isRight())
 {
 	$user = GWF_User::current();
-	$count = GWF_Friendship::count($user);
-	$link = GDO_Link::make('link_friends')->label('link_friends', [$count])->href(href('Friends', 'List'));
-	if (GWF_FriendRequest::countIncomingFor($user))
+	if ($user->isAuthenticated())
 	{
-		$link->icon('notifications');
+		$count = GWF_Friendship::count($user);
+		$link = GDO_Link::make('link_friends')->label('link_friends', [$count])->href(href('Friends', 'List'));
+		if (GWF_FriendRequest::countIncomingFor($user))
+		{
+			$link->icon('notifications');
+		}
+		$navbar->addField($link);
 	}
-	$navbar->addField($link);
 }

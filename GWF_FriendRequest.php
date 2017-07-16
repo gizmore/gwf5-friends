@@ -50,7 +50,19 @@ final class GWF_FriendRequest extends GDO
 	
 	public static function countIncomingFor(GWF_User $user)
 	{
-		return self::table()->countWhere("frq_friend={$user->getID()} AND frq_denied IS NULL");
+		if (null === ($cached = $user->tempGet('gwf_friendrequest_count')))
+		{
+			$cached = self::table()->countWhere("frq_friend={$user->getID()} AND frq_denied IS NULL");
+			$user->tempSet('gwf_friendrequest_count', $cached);
+			$user->recache();
+		}
+		return $cached;
+	}
+	public function gdoAfterCreate()
+	{
+		$user = $this->getFriend();
+		$user->tempUnset('gwf_friendrequest_count');
+		$user->recache();
 	}
 	
 }
