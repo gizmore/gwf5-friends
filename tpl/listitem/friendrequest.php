@@ -11,7 +11,7 @@ if ($friendship->isFrom($user)) :
     <h3><?= $friend->displayName(); ?></h3>
     <p><?= t('friend_request_to', [$friendship->displayRelation(), tt($friendship->getCreated())]); ?></p>
   </div>
-  <?= GDO_Button::make('btn_delete')->noLabel()->icon('delete')->href(href('Friends', 'RemoveTo', '&friend='.$friend->getID())); ?>
+  <?= GDO_IconButton::make()->icon('delete')->href(href('Friends', 'RemoveTo', '&friend='.$friend->getID())); ?>
 </md-list-item>
 <?php else : ?>
 <md-list-item class="md-2-line">
@@ -20,7 +20,7 @@ if ($friendship->isFrom($user)) :
     <h3><?= $friendship->getUser()->displayName(); ?></h3>
     <p><?= t('friend_request_from', [$friendship->displayRelation(), tt($friendship->getCreated())]); ?></p>
   </div>
-  <?= GDO_Button::make('btn_accept')->noLabel()->icon('person_add')->href(href('Friends', 'AcceptFrom', '&user='.$friendship->getUser()->getID())); ?>
-  <?= GDO_Button::make('btn_deny')->noLabel()->icon('block')->href(href('Friends', 'RemoveFrom', '&user='.$friendship->getUser()->getID())); ?>
+  <?= GDO_IconButton::make()->icon('person_add')->href(href('Friends', 'AcceptFrom', '&user='.$friendship->getUser()->getID())); ?>
+  <?= GDO_IconButton::make()->icon('block')->href(href('Friends', 'RemoveFrom', '&user='.$friendship->getUser()->getID())); ?>
 </md-list-item>
 <?php endif; ?>
